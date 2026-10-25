@@ -13,7 +13,20 @@ def classify_atmosphere(h_km: float) -> tuple:
     - 50 < h <= 85 -> ("Мезосфера", "Метеоракета")
     - h > 85 -> ("Термосфера", "Малий супутник")
     """
-    ...
+    if h_km<=11:
+        return ("Тропосфера", "Метеозонд")
+    elif h_km<=50: 
+        return ("Стратосфера", "Стратостат / Лідар")
+    elif h_km<=85:
+        return ("Мезосфера", "Метеоракета")
+    else:
+        return ("Термосфера", "Малий супутник")
+if __name__ == "__main__":            # Тестування всіх можливих варіантів 
+    print("================Тестування завдання 1.1================")
+    print(f"Зона атмосфери за висотою: {classify_atmosphere(3.7)[0]}, Прилад вимірювання: {classify_atmosphere(3.7)[1]}")   
+    print(f"Зона атмосфери за висотою: {classify_atmosphere(13.2)[0]}, Прилад вимірювання: {classify_atmosphere(13.2)[1]}")  
+    print(f"Зона атмосфери за висотою: {classify_atmosphere(59.6)[0]}, Прилад вимірювання: {classify_atmosphere(59.6)[1]}")  
+    print(f"Зона атмосфери за висотою: {classify_atmosphere(100)[0]}, Прилад вимірювання: {classify_atmosphere(100)[1]}")  
 
 # Задача 2: Парсер кадрів CAN (match-case)
 def parse_can_frame(frame: list) -> str:
