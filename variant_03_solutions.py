@@ -21,7 +21,8 @@ def classify_atmosphere(h_km: float) -> tuple:
         return ("Мезосфера", "Метеоракета")
     else:
         return ("Термосфера", "Малий супутник")
-if __name__ == "__main__":            # Тестування всіх можливих варіантів 
+a=int(input()) 
+if a==1:     # Тестування всіх можливих варіантів 
     print("================Тестування завдання 1.1================")
     print(f"Зона атмосфери за висотою: {classify_atmosphere(3.7)[0]}, Прилад вимірювання: {classify_atmosphere(3.7)[1]}")   
     print(f"Зона атмосфери за висотою: {classify_atmosphere(13.2)[0]}, Прилад вимірювання: {classify_atmosphere(13.2)[1]}")  
@@ -37,7 +38,20 @@ def parse_can_frame(frame: list) -> str:
     - can_id 0x10 або 0x20 з іншою довжиною -> "Помилка довжини кадру"
     - інше -> "Невідомий CAN ID"
     """
-    ...
+    match frame:
+        case [0x10, payload] if len(payload)==8:
+            return "Навігація: Повний кадр"
+        case [0x20, payload] if len(payload)==8:
+            return "Керування двигуном: Повний кадр"
+        case [0x10|0x20, _]: 
+            return "Помилка довжини кадру"
+        case other:
+            return "Невідомий CAN ID"
+if a==2:
+    print(parse_can_frame([0x10, [1,0,0,1,0,1,1,0]]))
+    print(parse_can_frame([0x20, "10010110"]))
+    print(parse_can_frame([0x10, [1,0,0,1,0,1,1]]))
+    print(parse_can_frame([0x101, [1,0,0,1,0,1,1]]))
 
 # Задача 3: Моделювання розрядки акумулятора (while / break)
 def simulate_battery(start_voltage: float, emergency_flag: bool = False) -> tuple:
