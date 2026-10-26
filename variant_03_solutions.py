@@ -76,4 +76,12 @@ def smooth_gyro_data(data: list) -> list:
     Обчислює згладжений масив середнім арифметичним трьох послідовних вимірів
     через індексацію range(len(data) - 2).
     """
-    ...
+    smooth=[]
+    data=list(map(float, data))
+    for i in range(len(data) - 2):
+        window=(data[i:i+3])
+        ave=sum(window)/3
+        smooth.append(round(ave,2))
+    return (smooth)    
+if a==4:
+    print(smooth_gyro_data([0.1, 0.15, 0.8, 0.12, 0.11, 0.95, 0.13, 0.14]))
