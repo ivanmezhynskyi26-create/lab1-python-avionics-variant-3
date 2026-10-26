@@ -60,7 +60,15 @@ def simulate_battery(start_voltage: float, emergency_flag: bool = False) -> tupl
     Цикл зупиняється при V < 3.3 В або за прапорцем emergency_flag (після 5 витків).
     Повертає кортеж (кількість_витків, кінцева_напруга).
     """
-    ...
+    orbit=0
+    while start_voltage>=3.3 and not (emergency_flag and orbit>=5):          #>=3.3 бо через особливості заокруглення float віднімається число трішки менше за 0.05
+        orbit+=1
+        start_voltage-=0.05
+        start_voltage=round(start_voltage, 3)
+    return (orbit, start_voltage)
+if a==3:
+    print(simulate_battery(4.2, False))
+    print(simulate_battery(4.2, True))
 
 # Задача 4: Фільтр ковзного середнього (range / len)
 def smooth_gyro_data(data: list) -> list:
