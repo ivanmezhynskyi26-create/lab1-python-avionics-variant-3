@@ -40,13 +40,14 @@ def parse_can_frame(frame: list) -> str:
     """
     match frame:
         case [0x10, payload] if len(payload)==8:
-            return "Навігація: Повний кадр"
+            answer= "Навігація: Повний кадр"
         case [0x20, payload] if len(payload)==8:
-            return "Керування двигуном: Повний кадр"
+            answer= "Керування двигуном: Повний кадр"
         case [0x10|0x20, _]: 
-            return "Помилка довжини кадру"
+            answer= "Помилка довжини кадру"
         case other:
-            return "Невідомий CAN ID"
+            answer= "Невідомий CAN ID"
+    return answer    
 if a==2:
     print(parse_can_frame([0x10, [1,0,0,1,0,1,1,0]]))
     print(parse_can_frame([0x20, "10010110"]))
